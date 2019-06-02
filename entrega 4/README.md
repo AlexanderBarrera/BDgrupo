@@ -66,3 +66,7 @@ Presenta los datos de los usuarios junto con los mensajes entre ellos
 Desde home se tiene un form que emite a /mensajes con el método post que
 genera un nuevo mensaje en la base de datos (de ser exitoso es el último
 mensaje en la ventana de mensajes)
+
+#Eliminación de mensajes
+Desde home se tiene un form que emite a /mensajesdelete con el método post
+que elimina el primer mensjaje con la mid detectada
