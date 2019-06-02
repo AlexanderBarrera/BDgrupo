@@ -56,6 +56,13 @@ def get_users():
 
     return json.jsonify(resultados)
 
+@app.route("/mensajes")
+def get_mensajes():
+    resultados = [u for u in mensajes.find({}, {"_id": 0})]
+    # Omitir el _id porque no es json serializable
+
+    return json.jsonify(resultados)
+
 
 @app.route("/users/<int:uid>")
 def get_user(uid):
@@ -152,6 +159,5 @@ def test():
 
     return "OK"
 
-
-if os.name == 'nt':
+if __name__ == '__main__':
     app.run()
