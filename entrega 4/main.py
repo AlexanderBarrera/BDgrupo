@@ -84,12 +84,15 @@ def get_mensajesentre(uid1, uid2):
 
 @app.route("/mensajes", methods=['POST'])
 def create_mensaje():
+    cuenta = int(mensajes.count_documents({ }))
+    numerin = cuenta + 1
     new_mens = {"message": request.form['contenido'],
                 "sender": request.form['de'],
                 "receptant": request.form['para'],
                 "lat": request.form['latitud'],
                 "long": request.form['longitud'],
-                "date": str(datetime.today()).split()[0]}
+                "date": str(datetime.today()).split()[0],
+                "mid": numerin}
     result = mensajes.insert_one(new_mens)
     # Creo el mensaje resultado
     if (result):

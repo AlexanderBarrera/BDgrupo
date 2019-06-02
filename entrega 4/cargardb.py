@@ -23,7 +23,7 @@ usuarios = db.usuarios
 mensajes = db.mensajes
 
 dele = mensajes.delete_many({})
-with open('messages.json', "r") as m:
+with open('mensajes.json', "r") as m:
     file_data = json.load(m)
     result = db.mensajes.insert_many(file_data)
 m.close()
