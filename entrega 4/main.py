@@ -67,9 +67,18 @@ def get_mensajes():
 @app.route("/users/<int:uid>")
 def get_user(uid):
     users = list(usuarios.find({"uid": uid}, {"_id": 0}))
+    mens = list(mensajes.find({"sender": uid}, {"_id": 0}))
+    return json.jsonify(users + mens)
 
-    return json.jsonify(users)
-
+@app.route("/mensajesentre/<int:uid1>/<int:uid2>")
+def get_mensajesentre(uid1, uid2):
+    print(uid1, uid2)
+    user1 = list(usuarios.find({"uid": uid1}, {"_id": 0}))
+    user2 = list(usuarios.find({"uid": uid2}, {"_id": 0}))
+    mens1 = list(mensajes.find({"sender": uid1, "receptant": uid2}, {"_id": 0}))
+    mens2 = list(mensajes.find({"sender": uid2, "receptant": uid1}, {"_id": 0}))
+    res = user1 + user2 + mens1 + mens2
+    return json.jsonify(res)
 
 @app.route("/users", methods=['POST'])
 def create_user():
