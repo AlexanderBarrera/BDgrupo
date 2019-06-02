@@ -5,8 +5,10 @@ import matplotlib.pyplot as plt
 import os
 import atexit
 import subprocess
+from datetime import datetime
 
 USER_KEYS = ['name', 'last_name', 'occupation', 'follows', 'age']
+MENSAJE_KEYS = ["message", "sender", "receptant", "lat", "long", "date"]	
 
 # Levantamos el servidor de mongo. Esto no es necesario, puede abrir
 # una terminal y correr mongod. El DEVNULL hace que no vemos el output
@@ -27,7 +29,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return "<h1>HELLO</h1>"
+    return render_template('index.html')
 
 # Mapeamos esta función a la ruta '/plot' con el método get.
 @app.route("/plot")
@@ -80,6 +82,25 @@ def get_mensajesentre(uid1, uid2):
     res = user1 + user2 + mens1 + mens2
     return json.jsonify(res)
 
+@app.route("/mensajes", methods=['POST'])
+def create_mensaje():
+    new_mens = {"message": request.form['contenido'],
+                "sender": request.form['de'],
+                "receptant": request.form['para'],
+                "lat": request.form['latitud'],
+                "long": request.form['longitud'],
+                "date": str(datetime.today()).split()[0]}
+    result = mensajes.insert_one(new_mens)
+    # Creo el mensaje resultado
+    if (result):
+        message = "mensaje creado"
+        success = True
+    else:
+        message = "No se pudo crear el mensaje"
+        success = False
+    # Retorno el texto plano de un json
+    return json.jsonify({'success': success, 'message': message})
+	
 @app.route("/users", methods=['POST'])
 def create_user():
     '''
