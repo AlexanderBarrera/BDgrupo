@@ -20,7 +20,7 @@ client = MongoClient('localhost')
 db = client["entidades"]
 # Seleccionamos la colección de usuarios
 usuarios = db.usuarios
-
+mensajes = db.mensajes
 # Iniciamos la aplicación de flask
 app = Flask(__name__)
 
