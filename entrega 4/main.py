@@ -103,6 +103,16 @@ def create_mensaje():
         success = False
     # Retorno el texto plano de un json
     return json.jsonify({'success': success, 'message': message})
+
+@app.route("/mensajesdelete", methods=['POST'])
+def delete_mensaje():
+    mid = request.form["mid"] 
+    result = mensajes.delete_one({"mid": mid})
+	
+    message = f'Mensaje con id={mid} ha sido eliminado.'
+	
+    # Retorno el texto plano de un json
+    return json.jsonify({'success': True, 'message': message})
 	
 @app.route("/users", methods=['POST'])
 def create_user():

@@ -27,7 +27,7 @@
            </form>
 		</div>
 		<div class="row justify-content-center">
-		    <h5>Crear comentario</h5>
+		    <h5>Crear mensaje</h5>
 		</div>
 		<div class="row justify-content-center">
 		    <form action="mensajes" method="post">
@@ -54,7 +54,18 @@
 	            <button type="submit" class="btn btn-secondary">Crear mensaje</button>
            </form>
 		</div>
-		
+		<div class="row justify-content-center">
+		    <h5>Eliminar mensaje</h5>
+		</div>
+		<div class="row justify-content-center">
+		    <form action="mensajesdelete" method="post">
+		        <div class="form-group">
+                    <label for="mid">Id del mensaje</label>
+		            <input type="number" name="mid">
+		        </div>
+	            <button type="submit" class="btn btn-secondary">Eliminar mensaje</button>
+           </form>
+		</div>
 	</div>
 </body>
 </html>

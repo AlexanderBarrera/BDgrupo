@@ -29,7 +29,7 @@ result = db.usuarios.insert_many(records_)
 
 
 cursor = usuarios.find({}, {"_id": 0})
-file = open("usuarios.json", "w")
+file = open("usuarios.json", "w", encoding = "utf-8")
 file.write('[')
 
 qnt_cursor = 0
