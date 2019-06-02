@@ -23,13 +23,13 @@ usuarios = db.usuarios
 mensajes = db.mensajes
 
 dele = mensajes.delete_many({})
-with open('mensajes.json', "r") as m:
+with open('mensajes.json', "r", encoding = "utf-8") as m:
     file_data = json.load(m)
     result = db.mensajes.insert_many(file_data)
 m.close()
 
 dele = usuarios.delete_many({})
-with open('usuarios.json', "r") as u:
+with open('usuarios.json', "r", encoding = "utf-8") as u:
     file_data = json.load(u)
     result = db.usuarios.insert_many(file_data)
 u.close()
