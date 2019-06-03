@@ -87,10 +87,10 @@ def create_mensaje():
     cuenta = int(mensajes.count_documents({ }))
     numerin = cuenta + 1
     new_mens = {"message": request.form['contenido'],
-                "sender": request.form['de'],
-                "receptant": request.form['para'],
-                "lat": request.form['latitud'],
-                "long": request.form['longitud'],
+                "sender": int(request.form['de']),
+                "receptant": int(request.form['para']),
+                "lat": float(request.form['latitud']),
+                "long": float(request.form['longitud']),
                 "date": str(datetime.today()).split()[0],
                 "mid": numerin}
     result = mensajes.insert_one(new_mens)
@@ -104,6 +104,39 @@ def create_mensaje():
     # Retorno el texto plano de un json
     return json.jsonify({'success': success, 'message': message})
 
+@app.route("/mensajes/buscar", methods=['POST'])
+def search_mensaje():
+    musts = request.form["must"].split(";") 
+    maybes = request.form["maybe"].split(";") 
+    notbes = request.form["notbe"].split(";") 
+    pid = request.form["pid"]
+    query = []
+    print(pid, musts, maybes, notbes)
+    if pid:
+        query.append({"sender": int(pid)})
+        #result = mensajes.distinct({"sender": pid})
+    #else:
+    #    result = mensajes.distinct({"message": {'$regex' : '.*.*'}})	
+    if len(musts) > 0:
+       for each in musts:
+           if each != "":
+               query.append({"message": {'$regex' : '.*{}.*'.format(each.strip())}})
+   #result = result.distinct({"message": {'$regex' : '.*{}.*'.format(each)}})
+    if len(notbes) > 0:
+       for each in notbes:
+           if each != "":
+               query.append({"message": {'$regex' : '^((?!{}).)*$'.format(each.strip())}})
+   #result = result.distinct({"message": {'$regex' : '^((?!{}).)*$'.format(each)}})
+    print(query)
+    #resultados = [u for u in mensajes.find({"$and": query})]
+    if len(query) > 1:
+        resultados = [u for u in mensajes.find({"$and": query}, {"_id": 0})]
+    elif len(query) == 1:
+        resultados = [u for u in mensajes.find(query[0], {"_id": 0})]
+    else:
+        resultados = [u for u in mensajes.find({}, {"_id": 0})]
+    return json.jsonify(resultados)
+	
 @app.route("/mensajesdelete", methods=['POST'])
 def delete_mensaje():
     mid = request.form["mid"] 
