@@ -27,6 +27,7 @@ mensajes = db.mensajes
 app = Flask(__name__)
 
 
+
 @app.route("/")
 def home():
     return render_template('index.html')
@@ -56,14 +57,14 @@ def get_users():
     resultados = [u for u in usuarios.find({}, {"_id": 0})]
     # Omitir el _id porque no es json serializable
 
-    return json.jsonify(resultados)
+    return render_template('usuarios.html', result = resultados)
 
 @app.route("/mensajes")
 def get_mensajes():
     resultados = [u for u in mensajes.find({}, {"_id": 0})]
     # Omitir el _id porque no es json serializable
 
-    return json.jsonify(resultados)
+    return render_template('mensajes.html', result = resultados)
 
 
 @app.route("/users/<int:uid>")
