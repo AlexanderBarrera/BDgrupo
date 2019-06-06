@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% set active_page = "search_message" %}
+
+{% block header %}
+  <h1>{% block title %}Buscar Mensajes{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<h5>Separar frases y palabras con: ;</h5>
+<form action="mensajes/buscar" method="post">
+    <div class="form-group">
+        <label for="must">Contenido si o si en el mensaje:</label>
+        <input type="text" name="must">
+    </div>
+    <div class="form-group">
+        <label for="maybe">Contenido que puede estar:</label>
+        <input type="text" name="maybe">
+    </div>
+    <div class="form-group">
+        <label for="notbe">Contenido que no debe estar:</label>
+        <input type="text" name="notbe">
+    </div>
+    <div class="form-group">
+        <label for="pid">Id del emisor:</label>
+        <input type="number" name="pid">
+    </div>
+    <button type="submit" class="btn btn-secondary">Buscar mensajes</button>
+</form>
+{% endblock %}

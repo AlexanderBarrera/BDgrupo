@@ -140,13 +140,26 @@ def search_mensaje():
 	
 @app.route("/mensajesdelete", methods=['POST'])
 def delete_mensaje():
-    mid = request.form["mid"] 
+    mid = int(request.form["mid"])
     result = mensajes.delete_one({"mid": mid})
 	
     message = f'Mensaje con id={mid} ha sido eliminado.'
 	
     # Retorno el texto plano de un json
-    return json.jsonify({'success': True, 'message': message})
+    return json.jsonify({'deleted:': result.deleted_count, 'success': True, 'message': message})
+
+@app.route("/mensajessearch", methods=['GET'])
+def get_search():
+    return render_template('search.html')
+
+@app.route("/mensajescreate", methods=['GET'])
+def get_create():
+    return render_template('create_message.html')
+
+@app.route("/mensajesdelete", methods=['GET'])
+def get_delete():
+    return render_template('delete_message.html')
+	
 	
 @app.route("/users", methods=['POST'])
 def create_user():

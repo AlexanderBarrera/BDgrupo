@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% set active_page = "create_message" %}
+
+{% block header %}
+  <h1>{% block title %}Crear Mensaje{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+ <form action="mensajes" method="post">
+    <div class="form-group">
+        <label for="de">Emisor</label>
+        <input type="number" name="de">
+    </div>
+    <div class="form-group">
+        <label for="para">Receptor</label>
+        <input type="number" name="para">
+    </div>
+    <div class="form-group">
+        <label for="latitud">Latitud</label>
+        <input type="number" name="latitud">
+    </div>
+    <div class="form-group">
+        <label for="longitud">Longitud</label>
+        <input type="number" name="longitud">
+    </div>
+    <div class="form-group">
+        <label for="contenido">Contenido</label>
+        <input type="text" name="contenido"><br>
+    </div>
+    <button type="submit" class="btn btn-secondary">Crear mensaje</button>
+</form>
+{% endblock %}
