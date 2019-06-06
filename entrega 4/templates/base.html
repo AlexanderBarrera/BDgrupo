@@ -22,8 +22,12 @@
 </nav>
 <section class="content">
     <header>
-      <div class='justify-content-center'>
-        {% block header %}{% endblock %}
+      <div class='container'>
+          <div class='row'>
+              <div class='center-block'>
+                {% block header %}{% endblock %}
+              </div>
+          </div>
       </div>
     </header>
     {% for message in get_flashed_messages() %}
