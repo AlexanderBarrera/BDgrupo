@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% set active_page = "mensajes_entre" %}
+
+{% block header %}
+  <h1>{% block title %}Buscar Mensajes{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<form action="/mensajesentreusuarios" method="post">
+    <div class="form-group">
+        <label for="uid1">Id Usuario 1:</label>
+        <input type="number" name="uid1">
+    </div>
+    <div class="form-group">
+        <label for="uid2">Id Usuario 2:</label>
+        <input type="number" name="uid2">
+    </div>
+    <button type="submit" class="btn btn-secondary">Buscar mensajes</button>
+</form>
+{% endblock %}

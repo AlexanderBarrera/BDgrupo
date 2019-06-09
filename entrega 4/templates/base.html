@@ -2,7 +2,7 @@
 <head>    
     <title>{% block title %}{% endblock %} - ROnCHA</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="C ontent-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -12,13 +12,14 @@
 <nav>
  <h1 class="display-1"><a href="/" style="text-decoration:none" >ROnCHA</a></h1>
   <ul class="list-group list-group-horizontal-sm">
-    <li class="list-group-item {{'active' if active_page == 'index' else ''}}">Inicio</li>
-    <li class="list-group-item {{'active' if active_page == 'view_messages' else ''}}">Ver Mensajes</li>
-    <li class="list-group-item {{'active' if active_page == 'users' else ''}}">Ver Usuarios</li>
-    <li class="list-group-item {{'active' if active_page == 'search_message' else ''}}">Buscar Mensaje</li>
-    <li class="list-group-item {{'active' if active_page == 'create_message' else ''}}">Crear Mensaje</li>
-    <li class="list-group-item {{'active' if active_page == 'delete_message' else ''}}">Eliminar Mensaje</li>
-</ul>
+      <li class="list-group-item {{'active' if active_page == 'index' else ''}}">Inicio</li>
+      <li class="list-group-item {{'active' if active_page == 'view_messages' else ''}}">Ver Mensajes</li>
+      <li class="list-group-item {{'active' if active_page == 'mensajes_entre' else ''}}">Mensajes entre usuarios</li>
+      <li class="list-group-item {{'active' if active_page == 'users' else ''}}">Ver Usuarios</li>
+      <li class="list-group-item {{'active' if active_page == 'search_message' else ''}}">Buscar Mensaje</li>
+      <li class="list-group-item {{'active' if active_page == 'create_message' else ''}}">Crear Mensaje</li>
+      <li class="list-group-item {{'active' if active_page == 'delete_message' else ''}}">Eliminar Mensaje</li>
+  </ul>
 </nav>
 <section class="content">
     <header>

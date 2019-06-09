@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% set active_page = "delete_message" %}
+
+{% block header %}
+  <h1>{% block title %}Mensaje eliminado{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <center>{{message}}<center>
+{% endblock %}

@@ -8,7 +8,7 @@ import subprocess
 from datetime import datetime
 
 USER_KEYS = ['name', 'last_name', 'occupation', 'follows', 'age']
-MENSAJE_KEYS = ["message", "sender", "receptant", "lat", "long", "date"]	
+MENSAJE_KEYS = ["message", "sender", "receptant", "lat", "long", "date"]
 
 # Levantamos el servidor de mongo. Esto no es necesario, puede abrir
 # una terminal y correr mongod. El DEVNULL hace que no vemos el output
@@ -27,10 +27,10 @@ mensajes = db.mensajes
 app = Flask(__name__)
 
 
-
 @app.route("/")
 def home():
     return render_template('index.html')
+
 
 # Mapeamos esta función a la ruta '/plot' con el método get.
 @app.route("/plot")
@@ -57,14 +57,20 @@ def get_users():
     resultados = [u for u in usuarios.find({}, {"_id": 0})]
     # Omitir el _id porque no es json serializable
 
-    return render_template('usuarios.html', result = resultados)
+    return render_template('usuarios.html', result=resultados)
+
 
 @app.route("/mensajes")
 def get_mensajes():
     resultados = [u for u in mensajes.find({}, {"_id": 0})]
     # Omitir el _id porque no es json serializable
 
-    return render_template('mensajes.html', result = resultados)
+    return render_template('mensajes.html', result=resultados)
+
+
+@app.route("/ingresar_id_mensajes_entre_usuarios")
+def get_mensajes_entre():
+    return render_template('search_mensajes_entre_usuarios.html')
 
 
 @app.route("/users/<int:uid>")
@@ -73,20 +79,22 @@ def get_user(uid):
     mens = list(mensajes.find({"sender": uid}, {"_id": 0}))
     return json.jsonify(users + mens)
 
-@app.route("/mensajesentre/<int:uid1>/<int:uid2>")
-def get_mensajesentre(uid1, uid2):
-    print(uid1, uid2)
+
+@app.route("/mensajesentreusuarios", methods=['POST'])
+def get_mensajesentre():
+    uid1, uid2 = int(request.form["uid1"]), int(request.form["uid2"])
     user1 = list(usuarios.find({"uid": uid1}, {"_id": 0}))
     user2 = list(usuarios.find({"uid": uid2}, {"_id": 0}))
     mens1 = list(mensajes.find({"sender": uid1, "receptant": uid2}, {"_id": 0}))
     mens2 = list(mensajes.find({"sender": uid2, "receptant": uid1}, {"_id": 0}))
-    res = user1 + user2 + mens1 + mens2
-    return json.jsonify(res)
+    res = mens1 + mens2
+    return render_template('mensajes_entre.html', result=res)
 
-@app.route("/mensajes", methods=['POST'])
+
+@app.route("/crear_mensajes", methods=['POST'])
 def create_mensaje():
-    cuenta = int(mensajes.count_documents({ }))
-    numerin = cuenta + 1
+    cuenta = int(mensajes.count_documents({}))
+    numerin = cuenta
     new_mens = {"message": request.form['contenido'],
                 "sender": int(request.form['de']),
                 "receptant": int(request.form['para']),
@@ -103,64 +111,69 @@ def create_mensaje():
         message = "No se pudo crear el mensaje"
         success = False
     # Retorno el texto plano de un json
-    return json.jsonify({'success': success, 'message': message})
+    return render_template('mensaje_creado.html', message=message)
+
 
 @app.route("/mensajes/buscar", methods=['POST'])
 def search_mensaje():
-    musts = request.form["must"].split(";") 
-    maybes = request.form["maybe"].split(";") 
-    notbes = request.form["notbe"].split(";") 
+    musts = request.form["must"].split(";")
+    maybes = request.form["maybe"].split(";")
+    notbes = request.form["notbe"].split(";")
     pid = request.form["pid"]
     query = []
-    print(pid, musts, maybes, notbes)
+    # print(pid, musts, maybes, notbes)
     if pid:
         query.append({"sender": int(pid)})
-        #result = mensajes.distinct({"sender": pid})
-    #else:
+        # result = mensajes.distinct({"sender": pid})
+    # else:
     #    result = mensajes.distinct({"message": {'$regex' : '.*.*'}})	
     if len(musts) > 0:
-       for each in musts:
-           if each != "":
-               query.append({"message": {'$regex' : '.*{}.*'.format(each.strip())}})
-   #result = result.distinct({"message": {'$regex' : '.*{}.*'.format(each)}})
+        for each in musts:
+            if each != "":
+                query.append({"message": {'$regex': '.*{}.*'.format(each.strip())}})
+    # result = result.distinct({"message": {'$regex' : '.*{}.*'.format(each)}})
     if len(notbes) > 0:
-       for each in notbes:
-           if each != "":
-               query.append({"message": {'$regex' : '^((?!{}).)*$'.format(each.strip())}})
-   #result = result.distinct({"message": {'$regex' : '^((?!{}).)*$'.format(each)}})
-    print(query)
-    #resultados = [u for u in mensajes.find({"$and": query})]
+        for each in notbes:
+            if each != "":
+                query.append({"message": {'$regex': '^((?!{}).)*$'.format(each.strip())}})
+    # result = result.distinct({"message": {'$regex' : '^((?!{}).)*$'.format(each)}})
+    # print(query)
+    # resultados = [u for u in mensajes.find({"$and": query})]
     if len(query) > 1:
         resultados = [u for u in mensajes.find({"$and": query}, {"_id": 0})]
     elif len(query) == 1:
         resultados = [u for u in mensajes.find(query[0], {"_id": 0})]
     else:
         resultados = [u for u in mensajes.find({}, {"_id": 0})]
-    return json.jsonify(resultados)
-	
+    return render_template('buscar_mensajes.html', result=resultados)
+
+
 @app.route("/mensajesdelete", methods=['POST'])
 def delete_mensaje():
     mid = int(request.form["mid"])
     result = mensajes.delete_one({"mid": mid})
-	
-    message = f'Mensaje con id={mid} ha sido eliminado.'
-	
+
+    message = f'Mensaje {mid} ha sido eliminado.' if result.deleted_count > 0 \
+        else f'Mensaje {mid} no ha podido ser eliminado'
     # Retorno el texto plano de un json
-    return json.jsonify({'deleted:': result.deleted_count, 'success': True, 'message': message})
+    return render_template('mensaje_eliminado.html', deleted=result.deleted_count, success=True, message=message)
+
 
 @app.route("/mensajessearch", methods=['GET'])
 def get_search():
     return render_template('search.html')
 
+
 @app.route("/mensajescreate", methods=['GET'])
 def get_create():
     return render_template('create_message.html')
 
+
 @app.route("/mensajesdelete", methods=['GET'])
 def get_delete():
     return render_template('delete_message.html')
-	
-	
+
+
 @app.route("/users", methods=['POST'])
 def create_user():
     '''
@@ -248,6 +261,7 @@ def test():
     print("Body:", body)
 
     return "OK"
+
 
 if __name__ == '__main__':
     app.run()

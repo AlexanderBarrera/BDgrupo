@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% set active_page = "create_message" %}
+
+{% block header %}
+  <h1>
+      {% block title %}Crear Mensaje{% endblock %}
+  </h1>
+{% endblock %}
+
+{% block content %}
+    <h1>
+        <center>
+            {{message}}
+        </center>
+    </h1>
+{% endblock %}
