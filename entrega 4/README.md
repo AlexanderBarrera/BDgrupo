@@ -1,4 +1,4 @@
-# gunicorn-flask-pipenv-sample
+# Entrega 4 Grupo 33
 
 ## Para instalar pipenv (necesario):
 
@@ -44,27 +44,28 @@ Cualquier otro sistema operativo
 ```bash
 gunicorn main:app --workers=3 --reload
 ```
-DENTRO DE LA API:
+
+# DENTRO DE LA API:
 
 Rutas encontradas en la Api a partir de:
 
-localhost:5000
+``localhost:5000``
 
-/users
+` /users`
 Presenta los datos de todos los usuarios presentes en la base de datos, 
 y tiene un botón que lleva allí desde home
 
-/mensajes
+` /mensajes`
 Presenta los datos de todos los usuarios presentes en la base de datos, 
 y tiene un botón que lleva allí desde home
 
-/users/<Algún id de usuario>
+`/users/<Algún id de usuario>`
 Presenta los datos del usuario junto con los mensajes emitidos por él
 
-/mensajesentre/<Algún id de usuario>/<Algún id de otro usuario>
+`/mensajesentre/<Algún id de usuario>/<Algún id de otro usuario>`
 Presenta los datos de los usuarios junto con los mensajes entre ellos
 
-#Búsqueda de mensajes
+## Búsqueda de mensajes
 Desde home se tiene un form que emite a /mensajes/buscar con el método 
 post, donde busca en la base de datos según lo que se escriba, de no 
 querer incluir un campo, sólo dejarlo vacío.
@@ -74,11 +75,11 @@ pero se recomienda ver en la pestaña de mensajes para buscar algo que si
 exista.
 
 
-#Creación de mensajes:
+## Creación de mensajes:
 Desde home se tiene un form que emite a /mensajes con el método post que
 genera un nuevo mensaje en la base de datos (de ser exitoso es el último
 mensaje en la ventana de mensajes)
 
-#Eliminación de mensajes
+## Eliminación de mensajes
 Desde home se tiene un form que emite a /mensajesdelete con el método post
-que elimina el primer mensjaje con la mid detectada
+que elimina el primer mensaje con la mid detectada

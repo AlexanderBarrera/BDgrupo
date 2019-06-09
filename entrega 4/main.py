@@ -105,7 +105,7 @@ def create_mensaje():
     result = mensajes.insert_one(new_mens)
     # Creo el mensaje resultado
     if (result):
-        message = "mensaje creado"
+        message = "Mensaje creado"
         success = True
     else:
         message = "No se pudo crear el mensaje"
