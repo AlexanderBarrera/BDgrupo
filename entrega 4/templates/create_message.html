@@ -6,26 +6,26 @@
 {% endblock %}
 
 {% block content %}
- <form action="crear_mensajes" method="post">
+<form action="crear_mensajes" method="post">
     <div class="form-group">
-        <label for="de">Emisor</label>
-        <input type="number" name="de">
+        <label for="de" class="col-2 col-form-label">Emisor</label>
+        <input type="number" name="de" placeholder="Id Emisor">
     </div>
     <div class="form-group">
-        <label for="para">Receptor</label>
-        <input type="number" name="para">
+        <label for="para" class="col-2 col-form-label">Receptor</label>
+        <input type="number" name="para" placeholder="Id Receptor">
     </div>
     <div class="form-group">
-        <label for="latitud">Latitud</label>
-        <input type="number" name="latitud">
+        <label for="latitud" class="col-2 col-form-label">Latitud</label>
+        <input type="number" name="latitud" placeholder="Latitud">
     </div>
     <div class="form-group">
-        <label for="longitud">Longitud</label>
-        <input type="number" name="longitud">
+        <label for="longitud" class="col-2 col-form-label">Longitud</label>
+        <input type="number" name="longitud" placeholder="Longitud">
     </div>
     <div class="form-group">
-        <label for="contenido">Contenido</label>
-        <input type="text" name="contenido"><br>
+        <label for="contenido" class="col-2 col-form-label">Contenido</label>
+        <input type="text" name="contenido" placeholder="Contenido"><br>
     </div>
     <button type="submit" class="btn btn-secondary">Crear mensaje</button>
 </form>

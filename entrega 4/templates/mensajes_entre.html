@@ -12,24 +12,30 @@
         .myTable td, .myTable th { padding:5px;border:1px solid #000; }
         </style>
 
-    <table class="myTable">
-        <tr>
-            <th>Contenido</th>
-            <th>Id usuario</th>
-            <th>Id receptor</th>
-            <th>Latitud</th>
-            <th>Longitud</th>
-            <th>Fecha</th>
-            <th>Id mensaje</th>
-        </tr>
-        {% for value in result %}
-        <tr>
-            {% for keys, item in value.items() %}
-                <td>{{ item }}</td>
+    <div class="container">
+      <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Contenido</th>
+                <th>Id usuario</th>
+                <th>Id receptor</th>
+                <th>Latitud</th>
+                <th>Longitud</th>
+                <th>Fecha</th>
+                <th>Id mensaje</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for value in result %}
+            <tr>
+                {% for keys, item in value.items() %}
+                    <td>{{ item }}</td>
+                {% endfor %}
+            </tr>
             {% endfor %}
-        </tr>
-        {% endfor %}
-    </table>
+        </tbody>
+      </table>
+    </div>
     {% endblock %}
 </body>
 </html>

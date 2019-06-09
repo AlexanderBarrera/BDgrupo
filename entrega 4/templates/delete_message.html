@@ -6,15 +6,11 @@
 {% endblock %}
 
 {% block content %}
-   <div class="col center">
-		<div class="row justify-content-center">
-		    <form action="mensajesdelete" method="post">
-		        <div class="form-group">
-                    <label for="mid">Id del mensaje</label>
-		            <input type="number" name="mid">
-		        </div>
-	            <button type="submit" class="btn btn-secondary">Eliminar mensaje</button>
-           </form>
+	<form action="mensajesdelete" method="post">
+		<div class="form-group">
+			<label for="mid" class="col-2 col-form-label">Id Mensaje</label>
+			<input type="number" name="mid" placeholder="Id">
 		</div>
-	</div>
+		<button type="submit" class="btn btn-secondary">Eliminar mensaje</button>
+   </form>
 {% endblock %}

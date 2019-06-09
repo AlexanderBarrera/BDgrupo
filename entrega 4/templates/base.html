@@ -8,6 +8,9 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <style>
+        body {background-color: lightgrey;}
+    </style>
 </head>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <ul class="navbar-nav">
@@ -38,27 +41,17 @@
     </li>
   </ul>
 </nav>
-<!--<nav>-->
-<!-- <h1 class="display-1"><a href="/" style="text-decoration:none" >ROnCHA</a></h1>-->
-<!--  <ul class="list-group list-group-horizontal-sm">-->
-<!--      <li class="list-group-item {{'active' if active_page == 'index' else ''}}">Inicio</li>-->
-<!--      <li class="list-group-item {{'active' if active_page == 'view_messages' else ''}}">Ver Mensajes</li>-->
-<!--      <li class="list-group-item {{'active' if active_page == 'mensajes_entre' else ''}}">Mensajes entre usuarios</li>-->
-<!--      <li class="list-group-item {{'active' if active_page == 'users' else ''}}">Ver Usuarios</li>-->
-<!--      <li class="list-group-item {{'active' if active_page == 'search_message' else ''}}">Buscar Mensaje</li>-->
-<!--      <li class="list-group-item {{'active' if active_page == 'create_message' else ''}}">Crear Mensaje</li>-->
-<!--      <li class="list-group-item {{'active' if active_page == 'delete_message' else ''}}">Eliminar Mensaje</li>-->
-<!--  </ul>-->
-<!--</nav>-->
 <section class="content">
     <header>
-      <div class='container'>
-          <div class='row'>
-              <div class='center-block'>
-                {% block header %}{% endblock %}
+        <h1>
+            <div class='container header-title'>
+              <div class='row'>
+                  <div class='center-block'>
+                    {% block header %}{% endblock %}
+                  </div>
               </div>
-          </div>
-      </div>
+            </div>
+        </h1>
     </header>
     {% for message in get_flashed_messages() %}
         <div class="flash">{{ message }}</div>
