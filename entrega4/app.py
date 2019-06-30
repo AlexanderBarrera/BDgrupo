@@ -148,6 +148,39 @@ def search_mensaje():
         resultados = [u for u in mensajes.find({}, {"_id": 0})]
     return render_template('buscar_mensajes.html', result=resultados)
 
+@app.route("/mensajes/buscar_json", methods=['POST'])
+def search_mensaje_json():
+    musts = request.form["must"].split(";")
+    maybes = request.form["maybe"].split(";")
+    notbes = request.form["notbe"].split(";")
+    pid = request.form["pid"]
+    query = []
+    # print(pid, musts, maybes, notbes)
+    if pid:
+        query.append({"sender": int(pid)})
+        # result = mensajes.distinct({"sender": pid})
+    # else:
+    #    result = mensajes.distinct({"message": {'$regex' : '.*.*'}})	
+    if len(musts) > 0:
+        for each in musts:
+            if each != "":
+                query.append({"message": {'$regex': '.*{}.*'.format(each.strip())}})
+    # result = result.distinct({"message": {'$regex' : '.*{}.*'.format(each)}})
+    if len(notbes) > 0:
+        for each in notbes:
+            if each != "":
+                query.append({"message": {'$regex': '^((?!{}).)*$'.format(each.strip())}})
+    # result = result.distinct({"message": {'$regex' : '^((?!{}).)*$'.format(each)}})
+    # print(query)
+    # resultados = [u for u in mensajes.find({"$and": query})]
+    if len(query) > 1:
+        resultados = [u for u in mensajes.find({"$and": query}, {"_id": 0})]
+    elif len(query) == 1:
+        resultados = [u for u in mensajes.find(query[0], {"_id": 0})]
+    else:
+        resultados = [u for u in mensajes.find({}, {"_id": 0})]
+    return json.jsonify(resultados)
+
 
 @app.route("/mensajesdelete", methods=['POST'])
 def delete_mensaje():
