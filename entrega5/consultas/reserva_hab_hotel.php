@@ -35,7 +35,7 @@
 			$id_usuario = $_SESSION['login_id'];
 			$query_insertar = "INSERT INTO reservas_usuarios VALUES ('$maximo', '$id_usuario');";
 			$db33 -> exec($query_insertar);
-			header("location: /~grupo33/entrega3/users/userpage.php");
+			header("location: /~grupo33/entrega5/users/userpage.php");
 		}
 
 		else {

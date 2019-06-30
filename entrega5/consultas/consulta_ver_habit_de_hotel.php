@@ -65,7 +65,7 @@
 
     else {
       echo "<td>
-      <a href='http://bases.ing.puc.cl/~grupo33/entrega3/consultas/reserva_hab_hotel.php?var=$r[2]'> Reservar </a>
+      <a href='http://bases.ing.puc.cl/~grupo33/entrega5/consultas/reserva_hab_hotel.php?var=$r[2]'> Reservar </a>
       </td>";
     }
 

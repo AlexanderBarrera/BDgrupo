@@ -14,7 +14,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="http://bases.ing.puc.cl/~grupo33/entrega3/index.php">ROnCHA</a>
+      <a class="navbar-brand" href="http://bases.ing.puc.cl/~grupo33/entrega5/index.php">ROnCHA</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
       aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -22,7 +22,7 @@
 	  <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="/~grupo33/entrega3/index.php">Home
+              <a class="nav-link" href="/~grupo33/entrega5/index.php">Home
                 <span class="sr-only">(current)</span>
               </a>
             </li>
@@ -38,19 +38,32 @@
                 </a>
               <div class="dropdown-menu ">
               <?php if (!isset($_SESSION['login_user'])) {
-                      echo('<a class="dropdown-item" href="/~grupo33/entrega3/users/login.php">Login</a>');
-                    }
-                      else {
-                        echo('<a class="dropdown-item" href="/~grupo33/entrega3/users/userpage.php">Perfil</a>');
-                      }
-                     ?>
-                <a class="dropdown-item" href="/~grupo33/entrega3/users/logout.php">Logout</a>
+                echo('<a class="dropdown-item" href="/~grupo33/entrega5/users/login.php">Login</a>');
+              }
+                else {
+                  echo('<a class="dropdown-item" href="/~grupo33/entrega5/users/userpage.php">Perfil</a>');
+                }
+              ?>
+              <a class="dropdown-item" href="/~grupo33/entrega5/users/logout.php">Logout</a>
               </div>
-            </li>
+              <?php if (isset($_SESSION['login_user'])) {
+                echo('<li class="nav-item dropdown">');
+                echo('<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                ');
+                echo('Mensajes');
+                echo(' <div class="dropdown-menu ">');
+                echo('<a class="dropdown-item" href="/~grupo33/entrega5/mensajes/recibidos.php">Inbox</a>');
+                echo('<a class="dropdown-item" href="/~grupo33/entrega5/mensajes/enviados.php">Enviados</a>');
+                echo('<a class="dropdown-item" href="/~grupo33/entrega5/mensajes/nuevo.php">Nuevo mensaje</a>');
+                echo('<a class="dropdown-item" href="/~grupo33/entrega5/mensajes/buscar.php">Buscar mensaje</a>');
+                echo('</div>');
+                echo(' </li>');
+              }
+              ?>
           </ul>
         </div>
         <div class="container" style="height: 40px"> 
-          <form action='/~grupo33/entrega3/buscar.php' method='post' class="form-row">
+          <form action='/~grupo33/entrega5/buscar.php' method='post' class="form-row">
           <div class="row justify-content-right">
                 <div class="col center">
             <input class="form-control" type="text" placeholder="Buscar" id="quer" name="quer">

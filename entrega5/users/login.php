@@ -20,7 +20,7 @@
          $_SESSION["login_user"] = $myusername;
          $_SESSION["login_id"] = $dataCollected[0][0];
          
-         header("location: /~grupo33/entrega3/index.php");
+         header("location: /~grupo33/entrega5/index.php");
       }else {
          $error = "Your Login Name or Password is invalid";
       }
