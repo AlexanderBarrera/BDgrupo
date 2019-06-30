@@ -1,0 +1,41 @@
+<body>
+    {% extends 'base.html' %}
+    {% set active_page = "mensajes" %}
+    {% block header %}
+  <h1>{% block title %}Lista de Mensajes{% endblock %}</h1>
+    {% endblock %}
+
+    {% block content %}
+    <style type="text/css">
+        .myTable { width:400px;background-color:#eee;border-collapse:collapse; }
+        .myTable th { background-color:#000;color:white;width:50%; }
+        .myTable td, .myTable th { padding:5px;border:1px solid #000; }
+        </style>
+
+    <div class="container">
+      <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Contenido</th>
+                <th>Id usuario</th>
+                <th>Id receptor</th>
+                <th>Latitud</th>
+                <th>Longitud</th>
+                <th>Fecha</th>
+                <th>Id mensaje</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for value in result %}
+            <tr>
+                {% for keys, item in value.items() %}
+                    <td>{{ item }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endblock %}
+</body>
+</html>

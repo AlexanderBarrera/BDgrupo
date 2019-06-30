@@ -1,0 +1,68 @@
+﻿ejecutando psql desde Sites/Entrega 2, se utilizan los siguentes comandos:
+
+create table usuarios(id_usuario int primary key, nombre varchar, fecha_nacimiento date, email varchar, nacionalidad varchar)
+\copy usuarios (id_usuario, nombre, fecha_nacimiento, email, nacionalidad) from 'datos/comun/usuario.csv' DELIMITER ';' CSV HEADER;
+
+create table reservas (id_reserva int primary key, fecha_inicio date, fecha_fin date); 
+\copy reservas (id_reserva, fecha_inicio, fecha_fin) from 'datos/impar/reservas.csv' DELIMITER ';' CSV HEADER;
+
+(se utilizan los archivos py para arreglar el archivo de hoteles_habitaciones que tenia nombres con comas en medio y conflicto con los readers de csv)
+
+create table hoteles (id_hotel int primary key, nombre varchar, direccion varchar, telefono int, descripcion varchar, estrellas smallint);
+\copy hoteles (id_hotel, nombre, direccion, telefono, descripcion, estrellas) from 'datos/impar/hoteles.csv' DELIMITER ';' CSV HEADER;
+
+create table habitaciones (id_habitacion int primary key, nombre varchar, precio float)
+\copy habitaciones (id_habitacion, nombre, precio) from 'datos/impar/habitaciones.csv' DELIMITER ';' CSV HEADER;                                                                                                          ar, precio float)
+
+create table hotel_region (id_hotel int primary key, id_region int,
+			   FOREIGN KEY(id_hotel) REFERENCES hoteles (id_hotel) ON DELETE CASCADE,
+			   FOREIGN KEY(id_region) REFERENCES regiones (id_region) ON DELETE CASCADE);
+\copy hotel_region (id_hotel, id_region) from 'datos/impar/hotel_region.csv' DELIMITER ';' CSV HEADER;                                                                                                          ar, precio float)
+
+create table hotel_habit (id_habitacion int primary key, id_hotel int,
+			  FOREIGN KEY(id_hotel) REFERENCES hoteles (id_hotel) ON DELETE CASCADE,
+			  FOREIGN KEY(id_habitacion) REFERENCES habitaciones (id_habitacion) ON DELETE CASCADE);
+\copy hotel_habit (id_habitacion, id_hotel) from 'datos/impar/hotel_habit.csv' DELIMITER ';' CSV HEADER;
+
+create table reservas_habit(id_reseva int primary key, id_habitacion int,
+			    FOREIGN KEY(id_reserva) REFERENCES reservas (id_reserva) ON DELETE CASCADE,
+			    FOREIGN KEY(id_habitacion) REFERENCES habitaciones (id_habitacion) ON DELETE CASCADE);
+\copy reservas_habit(id_reserva, id_habitacion) from 'datos/impar/reservas_habit.csv' DELIMITER ';' CSV HEADER;
+
+create table reservas_usuarios(id_reserva int primary key, id_usuario int, FOREIGN KEY(id_reserva) REFERENCES reservas (id_reserva) ON DELETE CASCADE,FOREIGN KEY(id_usuario) REFERENCES usuarios (id_usuario) ON DELETE CASCADE);
+\copy reservas_usuarios(id_reserva, id_usuario) from 'datos/impar/reservas_usuarios.csv' DELIMITER ';' CSV HEADER;
+
+create table restaurantes(id_restaurante int primary key, nombre varchar, direccion varchar, telefono varchar, descripcion varchar(8000));
+\copy restaurantes(id_restaurante, nombre, direccion, telefono, descripcion) from 'datos/impar/restaurante.csv' DELIMITER ';' CSV HEADER;
+
+
+create table restaurantes_regiones(id_restaurante int primary key, id_region int,
+				   FOREIGN KEY(id_restaurante) REFERENCES restaurantes (id_restaurante) ON DELETE CASCADE,
+			   	   FOREIGN KEY(id_region) REFERENCES regiones (id_region) ON DELETE CASCADE);
+\copy restaurantes_regiones(id_restaurante, id_region) from 'datos/impar/restaurantes_regiones.csv' DELIMITER ';' CSV HEADER;
+
+create table platos(id_plato int PRIMARY KEY, nombre varchar, descripcion varchar, precio float);
+\copy platos(id_plato, nombre, descripcion, precio) from 'datos/impar/platos.csv' DELIMITER ';' CSV HEADER;
+
+create table restaurantes_platos(id_plato int, id_restaurante int, 
+				 PRIMARY KEY (id_plato, id_restaurante),
+				 FOREIGN KEY (id_plato) REFERENCES platos (id_plato) ON DELETE CASCADE,
+				 FOREIGN KEY (id_restaurante) REFERENCES restaurantes (id_restaurante) ON DELETE CASCADE);
+\copy restaurantes_platos(id_plato, id_restaurante) from 'datos/impar/restaurantes_platos.csv' DELIMITER ';' CSV HEADER;
+
+CREATE TABLE agencias(id_agencia int, nombre varchar, direccion varchar, telefono varchar, 
+		      PRIMARY KEY(id_agencia));
+\copy agencias(id_agencia, nombre, direccion, telefono) from 'datos/impar/agencias.csv' DELIMITER ';' CSV HEADER;
+
+CREATE TABLE agencia_region(id_agencia int, id_region int, PRIMARY KEY(id_agencia, id_region), FOREIGN KEY(id_agencia) REFERENCES agencias(id_agencia) ON DELETE CASCADE, FOREIGN KEY(id_region) REFERENCES regiones(id_region) ON DELETE CASCADE);
+\copy agencia_region(id_agencia, id_region) from 'datos/impar/agencia_region.csv' DELIMITER ';' CSV HEADER;
+
+CREATE TABLE tours(id_tour int, descripcion varchar, precio float, 
+	PRIMARY KEY(id_tour));
+\copy tours(id_tour, descripcion, precio) from 'datos/impar/tour.csv' DELIMITER ';' CSV HEADER;
+
+CREATE TABLE tour_agencia(id_tour int, id_agencia int, PRIMARY KEY(id_agencia, id_tour), FOREIGN KEY(id_agencia) REFERENCES agencias(id_agencia) ON DELETE CASCADE, FOREIGN KEY(id_tour) REFERENCES tours(id_tour) ON DELETE CASCADE);
+\copy tour_agencia(id_tour, id_agencia) from 'datos/impar/tour_agencia.csv' DELIMITER ';' CSV HEADER;
+
+
+				

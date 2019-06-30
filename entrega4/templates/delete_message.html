@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% set active_page = "crear" %}
+
+{% block header %}
+  <h1>{% block title %}Eliminar Mensaje{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+	<form action="mensajesdelete" method="post">
+		<div class="form-group">
+			<label for="mid" class="col-2 col-form-label">Id Mensaje</label>
+			<input type="number" name="mid" placeholder="Id">
+		</div>
+		<button type="submit" class="btn btn-secondary">Eliminar mensaje</button>
+   </form>
+{% endblock %}
