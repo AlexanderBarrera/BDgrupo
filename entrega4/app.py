@@ -75,6 +75,11 @@ def get_user(uid):
     mens = list(mensajes.find({"sender": uid}, {"_id": 0}))
     return json.jsonify(users + mens)
 
+@app.route("/recibidos/<int:uid>")
+def get_inbox(uid):
+    mens = list(mensajes.find({"receptant": uid}, {"_id": 0}))
+    return json.jsonify(mens)
+
 
 @app.route("/mensajesentreusuarios", methods=['POST'])
 def get_mensajesentre():
@@ -107,7 +112,7 @@ def create_mensaje():
         message = "No se pudo crear el mensaje"
         success = False
     # Retorno el texto plano de un json
-    return render_template('mensaje_creado.html', message=message)
+    return json.jsonify(success)
 
 
 @app.route("/mensajes/buscar", methods=['POST'])

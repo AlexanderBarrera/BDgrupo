@@ -6,25 +6,26 @@
 </style>
 
 <body>
-  <h1>Inbox</h1>
+  <h1>Enviados</h1>
   <?php 
     $method = 'GET';
-    $url = 'https://entrega05bd.herokuapp.com/recibidos/'. (string)7;
+    $url = 'https://entrega05bd.herokuapp.com/users/'. $_SESSION['login_id'];
     $result = CallAPI($method, $url, $data = false); 
     $result = json_decode($result, true); 
+    array_shift($result); // El  primer elemento es la información del usuario
   ?>
   <table class="myTable">
     <tr>
       <th>Contenido</th>
       <th>Fecha</th>
-      <th>Id sender</th>
+      <th>Id receptor</th>
     </tr>
   <?php
   foreach ($result as $p) {
     $message = $p['message'];
-    $sender = $p['sender'];
+    $receptant = $p['receptant'];
     $date = $p['date'];
-    echo "<tr> <td>$message</td> <td>$date</td><td>$sender</td></tr>";
+    echo "<tr> <td>$message</td> <td>$date</td><td>$receptant</td></tr>";
   }
   ?>
   </table>
