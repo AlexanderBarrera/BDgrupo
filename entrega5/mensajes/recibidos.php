@@ -6,14 +6,15 @@
 </style>
 
 <body>
-  <h1>Inbox</h1>
   <?php 
     $method = 'GET';
     $url = 'https://entrega05bd.herokuapp.com/recibidos/'. $_SESSION["login_id"];
     $result = CallAPI($method, $url, $data = false); 
     $result = json_decode($result, true); 
   ?>
-  <table class="myTable">
+<div class="container">
+<h1>Inbox</h1><br>
+  <table class="table table-striped">
     <tr>
       <th>Contenido</th>
       <th>Fecha</th>
@@ -28,5 +29,5 @@
   }
   ?>
   </table>
-
-<?php include('../templates/footer.html'); ?>
+  <?php include('../templates/footer.html'); ?>
+</div>

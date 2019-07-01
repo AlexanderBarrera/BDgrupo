@@ -6,7 +6,6 @@
 </style>
 
 <body>
-  <h1>Enviados</h1>
   <?php 
     $method = 'GET';
     $url = 'https://entrega05bd.herokuapp.com/users/'. $_SESSION['login_id'];
@@ -15,7 +14,9 @@
     array_shift($result); // El  primer elemento es la información del usuario
     array_shift($result);
   ?>
-  <table class="myTable">
+<div class="container">
+  <h1>Enviados</h1><br>
+  <table class="table table-striped">
     <tr>
       <th>Contenido</th>
       <th>Fecha</th>
@@ -30,5 +31,5 @@
   }
   ?>
   </table>
-
-<?php include('../templates/footer.html'); ?>
+  <?php include('../templates/footer.html'); ?>
+</div>
