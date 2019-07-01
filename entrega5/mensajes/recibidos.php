@@ -9,7 +9,7 @@
   <h1>Inbox</h1>
   <?php 
     $method = 'GET';
-    $url = 'https://entrega05bd.herokuapp.com/recibidos/'. (string)7;
+    $url = 'https://entrega05bd.herokuapp.com/recibidos/'. $_SESSION["login_id"];
     $result = CallAPI($method, $url, $data = false); 
     $result = json_decode($result, true); 
   ?>
