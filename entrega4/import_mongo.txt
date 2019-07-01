@@ -1,0 +1,3 @@
+mongoimport --jsonArray --uri="mongodb://grupo28:grupo28@146.155.13.149:27017/grupo28?authSource=admin" -c mensajes --file "C:\Users\vaetc\Desktop\BDgrupo\entrega4\mensajes.json"
+
+mongo -u grupo28 -p grupo28 --authenticationDatabase admin 146.155.13.149/grupo28

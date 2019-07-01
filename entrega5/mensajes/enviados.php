@@ -13,6 +13,7 @@
     $result = CallAPI($method, $url, $data = false); 
     $result = json_decode($result, true); 
     array_shift($result); // El  primer elemento es la información del usuario
+    array_shift($result);
   ?>
   <table class="myTable">
     <tr>
