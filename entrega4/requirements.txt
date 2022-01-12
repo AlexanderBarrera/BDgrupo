@@ -34,7 +34,7 @@ pandocfilters==1.4.2
 parso==0.3.1
 pep8==1.7.1
 pickleshare==0.7.5
-pipenv==2018.11.26
+pipenv==2022.1.8
 pluggy==0.8.0
 prettytable==0.7.2
 prometheus-client==0.6.0
